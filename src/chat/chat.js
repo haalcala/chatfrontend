@@ -33,8 +33,11 @@ function Chat({ username, roomname, socket }) {
 const ChatMessages = ({ username }) => {
     console.log("Rendering ChatMessages ...")
 
-    const { messages } = useSelector(state => state.ChatReducer)
+    const chat_reducer = useSelector(state => state.ChatReducer)
 
+    const { messages } = chat_reducer
+
+    console.log("ChatMessages:: chat_reducer.object_id", chat_reducer.object_id);
     console.log("ChatMessages:: messages", messages);
 
     const messagesEndRef = useRef(null);

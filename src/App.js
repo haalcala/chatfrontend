@@ -42,12 +42,17 @@ function App() {
 
   console.log("App:: isLogged:", isLogged)
 
+  console.log("App:: chat_state.object_id:", chat_state.object_id)
   console.log("App:: chat_state.messages:", chat_state.messages)
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("App:: useEffect ...")
+    console.log("App:: useEffect ... chat_state.object_id:", chat_state.object_id)
+
+    if (!chat_state.object_id) {
+      chat_state.object_id = new Date().getTime()
+    }
 
     socket.on("unkown_user", (data) => {
       console.log("socket.on:unkown_user:: data:", data)
@@ -59,6 +64,7 @@ function App() {
       //decypt the message
 
       console.log("socket.on(message):: data:", data)
+      console.log("socket.on(message)::chat_state.object_id:", chat_state.object_id)
 
       const ans = to_Decrypt(data.text, data.username);
 

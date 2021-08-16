@@ -18,16 +18,18 @@ const ChatReducer = (state = { messages: [] }, action) => {
     console.log("ChatReducer called:: state:", state, "action:", action)
     switch (action.type) {
         case "SET_MESSAGES":
-            state.messages = action.payload.messages || []
+            state = { ...state, messages: action.payload.messages || [] };
+            break;
         case "SET_LOGGED":
-            console.log("action.payload.isLogged:", action.payload.isLogged)
+            console.log("ChatReducer:: action.payload.isLogged:", action.payload.isLogged)
             if (!action.payload.isLogged) {
-                state.messages.splice(0, state.messages.length)
+                state = { ...state, messages: state.messages.splice(0) }
             }
-        default:
-            console.log("ChatReducer:: Returning state:", state)
-            return state
+            break;
     }
+
+    console.log("ChatReducer:: Returning state:", state)
+    return state
 }
 
 const rootReducers = combineReducers({
